@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurohane HyperOS Ports</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="glow-bg"></div>
+
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <div class="logo">
+                <span class="logo-accent">KURO</span>HANE
+            </div>
+            <div class="nav-links">
+                <a href="#" class="active" id="nav-explore">Explore</a>
+                <a href="#" id="nav-devices">Devices</a>
+                <button class="btn-primary" id="upload-trigger">Upload ROM</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div id="explore-view" class="view">
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Elevate Your <span class="text-gradient">Android Experience</span></h1>
+                    <p>Discover and download the most advanced and stable HyperOS Port ROMs for your device. We are
+                        loyal to the HyperOS experience.</p>
+                    <div class="search-container">
+                        <input type="text" id="rom-search" placeholder="Search for your device or ROM...">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+
+            <section class="filters-section">
+                <div class="filters" id="filter-container">
+                    <!-- Filters will be injected by JavaScript -->
+                </div>
+            </section>
+
+            <section class="rom-grid" id="rom-grid">
+                <!-- ROM Cards will be injected by JavaScript -->
+            </section>
+        </div>
+
+        <div id="devices-view" class="view" style="display: none;">
+            <section class="hero-mini">
+                <div class="hero-content">
+                    <h1>Supported <span class="text-gradient">Devices</span></h1>
+                    <p>Browse all devices and their respective codenames supported by KuroHane Ports.</p>
+                </div>
+            </section>
+            <section class="device-list-container">
+                <div id="device-grid" class="device-grid">
+                    <!-- Device items will be injected by JavaScript -->
+                </div>
+            </section>
+        </div>
+
+        <div id="details-view" class="view" style="display: none;">
+            <div class="details-page-wrapper">
+                <!-- Top Nav / Back Button -->
+                <nav class="details-top-nav">
+                    <button class="btn-back-refined" onclick="switchView('explore')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
+                        <span>Back to Explore</span>
+                    </button>
+                </nav>
+
+                <!-- Hero Header Area -->
+                <header class="details-hero" id="details-hero">
+                    <!-- Dynamic Title, Tags, and Porter Quick Info -->
+                </header>
+
+                <!-- Main Content Grid -->
+                <div class="details-grid">
+                    <div class="details-content-main">
+                        <section class="details-card-refined">
+                            <h2 class="section-title">Description</h2>
+                            <div class="content-body" id="details-note"></div>
+                        </section>
+
+                        <section class="details-card-refined">
+                            <h2 class="section-title">Changelog</h2>
+                            <ul class="changelog-list-refined" id="details-changelog"></ul>
+                        </section>
+
+                        <section class="details-card-refined">
+                            <h2 class="section-title">Installation Guide</h2>
+                            <div class="installation-steps-refined" id="details-installation"></div>
+                        </section>
+                    </div>
+
+                    <aside class="details-sidebar-refined">
+                        <div class="sticky-sidebar-content">
+                            <!-- Support / Donation or Porter Contact Card -->
+                            <div class="sidebar-card-refined Porter-card" id="details-porter-card">
+                                <!-- Porter details -->
+                            </div>
+
+                            <!-- Download Card -->
+                            <div class="sidebar-card-refined download-card">
+                                <h3 class="sidebar-title">Downloads</h3>
+                                <div class="download-links-grid" id="details-downloads">
+                                    <!-- Download buttons -->
+                                </div>
+                            </div>
+
+                            <!-- System Details Card -->
+                            <div class="sidebar-card-refined meta-card" id="details-system-meta">
+                                <!-- System specs -->
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="upload-modal" class="modal-overlay">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h2>Upload Custom ROM</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="telegram-contact-notice"
+                style="background: rgba(0, 136, 204, 0.1); padding: 1rem; border-radius: 12px; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; border: 1px solid rgba(0, 136, 204, 0.3);">
+                <div
+                    style="background: #0088cc; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.35-.97.52-1.35.51-.42-.01-1.23-.24-1.83-.43-.74-.23-1.33-.35-1.28-.75.02-.21.31-.42.85-.64 3.31-1.44 5.51-2.4 6.61-2.87 3.14-1.31 3.79-1.54 4.21-1.55.09-.01.31.02.45.13.11.08.14.2.16.29.01.07.02.21.01.3z" />
+                    </svg>
+                </div>
+                <div>
+                    <p style="font-size: 0.9rem; font-weight: 600; margin-bottom: 0.2rem;">Direct Submission</p>
+                    <p style="font-size: 0.8rem; color: var(--text-secondary);">Contact <a
+                            href="https://t.me/Alok_Kurohane" target="_blank"
+                            style="color: #0088cc; text-decoration: none; font-weight: 700;">@Alok_Kurohane</a> on
+                        Telegram to list your ROM.</p>
+                </div>
+            </div>
+            <div class="telegram-notice-refined"
+                style="background: rgba(var(--primary-rgb), 0.1); padding: 1rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid rgba(var(--primary-rgb), 0.2); font-size: 0.85rem;">
+                <p style="margin-bottom: 0.5rem; color: var(--text-primary); font-weight: 600;">How to submit:</p>
+                <ol style="padding-left: 1.2rem; color: var(--text-secondary);">
+                    <li>Fill out the form below.</li>
+                    <li>Click <strong>"Submit ROM"</strong> to download your JSON file.</li>
+                    <li>Compose an email (system will try to auto-open).</li>
+                    <li><strong>Attach the downloaded JSON file</strong> to the email or send it to <a
+                            href="https://t.me/Alok_Kurohane" target="_blank"
+                            style="color: var(--primary); font-weight: 600;">@Alok_Kurohane</a> on Telegram.</li>
+                </ol>
+            </div>
+            <form id="upload-form">
+                <div class="form-section">
+                    <h3 class="section-subtitle">Basic Information</h3>
+                    <div class="form-group row">
+                        <div class="col">
+                            <label>Device Name</label>
+                            <input type="text" id="up-device-name" required placeholder="e.g. POCO F3">
+                        </div>
+                        <div class="col">
+                            <label>Codename</label>
+                            <input type="text" id="up-codename" required placeholder="e.g. alioth">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <label>Port ROM Name</label>
+                            <input type="text" id="up-rom-name" required placeholder="e.g. HyperOS 1.0 Port">
+                        </div>
+                        <div class="col">
+                            <label>ROM Version</label>
+                            <input type="text" id="up-rom-version" required placeholder="e.g. 1.0.5.0.UMBMIXM">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <label>Android Version</label>
+                            <input type="text" id="up-android-version" required placeholder="e.g. 14 or 15">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="section-subtitle">Porter Information</h3>
+                    <div class="form-group row">
+                        <div class="col">
+                            <label>Porter Name</label>
+                            <input type="text" id="up-porter-name" required placeholder="Your Name">
+                        </div>
+                        <div class="col">
+                            <label>Contact link</label>
+                            <input type="text" id="up-porter-contact" required placeholder="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="section-subtitle">Categorization</h3>
+                    <div class="form-group">
+                        <label>Tags (Select all that apply)</label>
+                        <div class="tags-checkbox-group" id="upload-tags-container">
+                            <!-- Tags will be injected by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="section-subtitle">Details & Documentation</h3>
+                    <div class="form-group">
+                        <label>Additional Credits</label>
+                        <textarea id="up-brief-note" rows="2" placeholder="Brief description of the port..."></textarea>
+                    </div>
+
+                    <div class="dynamic-list-container">
+                        <div class="list-header">
+                            <label>Changelog</label>
+                            <button type="button" class="btn-icon-small" id="add-changelog-btn"
+                                title="Add Change"></button>
+                        </div>
+                        <div id="changelog-inputs" class="dynamic-inputs">
+                            <!-- Items added via JS -->
+                        </div>
+                    </div>
+
+                    <div class="dynamic-list-container">
+                        <div class="list-header">
+                            <label>Installation Instructions</label>
+                            <button type="button" class="btn-icon-small" id="add-install-btn" title="Add Step"></button>
+                        </div>
+                        <div id="installation-inputs" class="dynamic-inputs">
+                            <!-- Items added via JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="list-header">
+                        <h3 class="section-subtitle">Download Sources</h3>
+                        <button type="button" class="btn-icon-small" id="add-download-btn" title="Add Source"></button>
+                    </div>
+                    <div id="download-inputs" class="dynamic-inputs">
+                        <!-- Items added via JS -->
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary full-width">Submit ROM</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+{
+    "device_name": "Redmi Note 8",
+    "codename": "ginkgo",
+    "port_rom_name": "HydraOS",
+    "port_rom_version": "OS2.0.104.5",
+    "android_version": "15",
+    "porter_name": "Alok Kurohane",
+    "porter_contact": "https://t.me/Alok_Kurohane",
+    "tags": [
+        "All Ports",
+        "HyperOS 2.0",
+        "Global Port"
+    ],
+    "date_of_upload": "2026-02-12",
+    "download_links": [
+        {
+            "label": "Gdrive",
+            "url": "https://t.me/Alok_Kurohane"
+        }
+    ],
+    "brief_note": "",
+    "changelog": [
+        "This rom can easily fuck ur device"
+    ],
+    "installation_instructions": [
+        "Nothing"
+    ]
+}
